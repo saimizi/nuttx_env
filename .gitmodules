@@ -1,9 +1,9 @@
 [submodule "incubator-nuttx"]
 	path = nuttx
 	url = https://github.com/apache/incubator-nuttx.git
-[submodule "incubator-nuttx-apps"]
-	path = nuttx-apps
-	url = https://github.com/apache/incubator-nuttx-apps.git
 [submodule "esp-nuttx-bootloader"]
 	path = esp-nuttx-bootloader
 	url = https://github.com/espressif/esp-nuttx-bootloader.git
+[submodule "nuttx-apps"]
+	path = nuttx-apps
+	url = https://github.com/saimizi/nuttx-apps.git

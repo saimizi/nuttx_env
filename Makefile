@@ -27,6 +27,8 @@ esp-bins/partition-table-esp32.bin : esp-bins
 
 build-bootloader:
 	docker run --rm --user $(id -u):$(id -g) -v $(PWD)/esp-nuttx-bootloader:/work -w /work espressif/idf:latest ./build_idfboot.sh -c esp32
+	rm -fr esp-bins 2>/dev/null || true
+	cp -r esp-nuttx-bootloader/out esp-bins
 
 
 configure: nuttx/.config
@@ -46,6 +48,9 @@ download-nuttx:
 
 list-esp32-config:
 	./nuttx/tools/configure.sh -L | grep esp32-
+
+write-data:
+	esptool.py -c esp32 -p $(PORT) -b 115200 write_flash -fs detect -fm dio -ff 40m 0x110000 data.bin
 
 clean:
 	make clean -C nuttx
