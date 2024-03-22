@@ -41,16 +41,22 @@ menuconfig:
 
 download-all: esp-bins/bootloader-esp32.bin esp-bins/partition-table-esp32.bin
 	make -C nuttx flash ESPTOOL_PORT=$(PORT) ESPTOOL_BAUD=115200 ESPTOOL_BINDIR=../esp-bins
+	espflash monitor
 
 
 download-nuttx:
 	make -C nuttx flash ESPTOOL_PORT=$(PORT) ESPTOOL_BAUD=115200
+	espflash monitor
+
+run:
+	espflash monitor
 
 list-esp32-config:
 	./nuttx/tools/configure.sh -L | grep esp32-
 
 write-data:
-	esptool.py -c esp32 -p $(PORT) -b 115200 write_flash -fs detect -fm dio -ff 40m 0x110000 data.bin
+	#esptool.py -c esp32 -p $(PORT) -b 115200 write_flash -fs detect -fm dio -ff 40m 0x110000 data.bin
+	espflash write-bin 0x110000 data.bin
 
 clean:
 	make clean -C nuttx
